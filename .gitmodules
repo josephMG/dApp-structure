@@ -1,0 +1,12 @@
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/josephMG/dApp-frontend.git
+	branch = main
+[submodule "backend"]
+	path = backend
+	url = https://github.com/josephMG/dApp-backend.git
+	branch = main
+[submodule "hardhat"]
+	path = hardhat
+	url = https://github.com/josephMG/dApp-hardhat.git
+	branch = main
