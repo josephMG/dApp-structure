@@ -11,32 +11,20 @@ endef
 all: build up
 clean: down stop-rm-volume prune
 
-.PHONY: up $(SUBDIRS)
 up:
 	parallel -j3 --lb 'cd ${PWD}/{} ; docker-compose --ansi always up' ::: $(SUBDIRS)
 
-#$(SUBDIRS):
-#	cd ${PWD}/$@ && docker-compose up
-
-.PHONY: build $(SUBDIRS)
 build:
 	$(call FOREACH, docker-compose build)
-	#parallel -j3 --lb 'cd ${PWD}/{} ; docker-compose build' ::: hardhat backend frontend
 
-.PHONY: down $(SUBDIRS)
 down:
 	$(call FOREACH, docker-compose down)
-	#parallel -j3 --lb 'cd ${PWD}/{} ; docker-compose down' ::: hardhat backend frontend
 
-.PHONY: stop-rm $(SUBDIRS)
 stop-rm:
 	$(call FOREACH, docker-compose rm -sf)
-	#parallel -j3 --lb 'cd ${PWD}/{} ; docker-compose rm -sf' ::: hardhat backend frontend
 
-.PHONY: stop-rm-volume $(SUBDIRS)
 stop-rm-volume:
 	$(call FOREACH, docker-compose rm -sfv)
-	#parallel -j3 --lb 'cd ${PWD}/{} ; docker-compose rm -sfv' ::: hardhat backend frontend
 
 prune:
 	docker system prune -af
